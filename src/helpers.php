@@ -1,8 +1,8 @@
 <?php
 
 if (! function_exists("pages")) {
-  function pages()
-  {
-    return app();
-  }
+    function pages()
+    {
+        return app();
+    }
 }

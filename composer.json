@@ -1,0 +1,28 @@
+{
+    "name": "adminarchitect/pages",
+    "description": "Admin Architect - Pages model",
+    "keywords": [
+        "admin architect",
+        "laravel",
+        "pages",
+        "pages module",
+        "laravel pages"
+    ],
+    "authors": [
+        {
+            "name": "endi",
+            "email": "endi@terranet.md"
+        }
+    ],
+    "require": {
+        "cviebrock/eloquent-sluggable": "^3.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "Terranet\\Pages": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}

@@ -6,7 +6,6 @@ It includes Pages module out of the box as like as eloquent model and pages repo
 
 `Note:` this is not standalone package, it can be used only in conjunction with `Admin Architect` (`terranet/administrator`) package.
 
-```
 then require it:
 
 ```

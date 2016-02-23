@@ -2,13 +2,14 @@
 
 namespace Terranet\Pages;
 
+use App\Page;
 use Terranet\Pages\Contracts\PagesRepository as PagesContract;
 
 class PagesRepository implements PagesContract
 {
     protected $model;
 
-    protected $with = ['parent'];
+    protected $with = ['parent', 'siblings'];
 
     public function __construct($model)
     {
@@ -71,7 +72,7 @@ class PagesRepository implements PagesContract
             ->orderBy('id')
             ->orderBy('parent_id')
             ->with($this->with)
-            ->get()
+            ->get(['id', 'title', 'parent_id'])
             ->toArray();
 
         return $this->toTree($items);
@@ -147,5 +148,16 @@ class PagesRepository implements PagesContract
         }
 
         return $pages;
+    }
+
+    /**
+     * Get page siblings
+     *
+     * @param Page $page
+     * @return mixed null|\Illuminate\Database\Eloquent\Collection
+     */
+    public function siblings(Page $page)
+    {
+        return $page->siblings();
     }
 }

@@ -26,17 +26,31 @@ class Page extends Model implements SluggableInterface
         'excerpt',
     ];
 
+    /**
+     * The page url
+     *
+     * @return mixed null|string
+     */
     public function getUrlAttribute()
     {
         return route('pages.show', ['slug' => $this->getSlug()]);
     }
 
+    /**
+     * The pages short content
+     *
+     * @return mixed null|string
+     */
     public function getExcerptAttribute()
     {
-        return str_limit(
-            strip_tags($this->attributes['body']),
-            200
-        );
+        if (array_has($this->attributes, 'body')) {
+            return str_limit(
+                strip_tags($this->attributes['body']),
+                200
+            );
+        }
+
+        return null;
     }
 
     /**
@@ -57,5 +71,21 @@ class Page extends Model implements SluggableInterface
     public function children()
     {
         return $this->hasMany(LaravelPage::class, 'parent_id');
+    }
+
+    /**
+     * Get page siblings
+     *
+     * @return mixed null|\Illuminate\Database\Eloquent\Collection
+     */
+    public function siblings()
+    {
+        if ($p = $this->parent) {
+            return $p->children->filter(function ($item) {
+                return $item->id !== $this->id;
+            });
+        }
+
+        return null;
     }
 }

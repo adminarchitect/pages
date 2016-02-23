@@ -75,7 +75,7 @@ class PagesTableCommand extends Command
      */
     protected function createBaseMigration()
     {
-        $name = 'create_pages_tables';
+        $name = 'create_pages_table';
 
         $path = $this->laravel->databasePath() . '/migrations';
 

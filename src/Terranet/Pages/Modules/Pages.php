@@ -40,7 +40,7 @@ class Pages extends Resource implements Navigable, Filtrable, Editable, Validabl
                 'parent_id' => [
                     'label' => 'Parent',
                     'type' => 'select',
-                    'options' => ['' => '--Select--'] + pages_list(),
+                    'options' => ['' => '--Select--'] + pages()->lists(),
                 ],
                 'body' => [
                     'type' => 'tinymce',

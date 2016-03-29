@@ -4,7 +4,7 @@ namespace Terranet\Pages\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Composer;
+use Illuminate\Support\Composer;
 
 class PagesTableCommand extends Command
 {

@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "cviebrock/eloquent-sluggable": "^3.1"
+        "cviebrock/eloquent-sluggable": "4.2.*"
     },
     "autoload": {
         "psr-0": {

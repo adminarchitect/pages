@@ -3,28 +3,31 @@
 namespace Terranet\Pages\Models;
 
 use App\Page as LaravelPage;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model implements SluggableInterface
+class Page extends Model
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $table = 'pages';
 
     protected $fillable = ['title', 'slug', 'body', 'active', 'parent_id'];
 
-    protected $sluggable = [
-        'build_from' => 'title',
-        'save_to' => 'slug',
-        'on_update' => true,
-    ];
-
     protected $appends = [
         'url',
         'excerpt',
     ];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'onUpdate' => true,
+            ]
+        ];
+    }
 
     /**
      * The page url
@@ -33,7 +36,7 @@ class Page extends Model implements SluggableInterface
      */
     public function getUrlAttribute()
     {
-        return route('pages.show', ['slug' => $this->getSlug()]);
+        return route('pages.show', ['slug' => $this->getAttribute('slug')]);
     }
 
     /**

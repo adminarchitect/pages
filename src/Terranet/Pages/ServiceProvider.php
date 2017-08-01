@@ -3,7 +3,7 @@
 namespace Terranet\Pages;
 
 use App\Page;
-use Cviebrock\EloquentSluggable\SluggableServiceProvider;
+use Cviebrock\EloquentSluggable\ServiceProvider as SluggableServiceProvider;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Terranet\Pages\Console\PagesTableCommand;
 use Terranet\Pages\Contracts\PagesRepository as PagesContract;
@@ -16,7 +16,7 @@ class ServiceProvider extends LaravelServiceProvider
         $local = "{$baseDir}/publishes/routes.php";
         $routes = app_path('Http/Terranet/Pages/routes.php');
 
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             if (file_exists($routes)) {
                 /** @noinspection PhpIncludeInspection */
                 require_once $routes;
@@ -38,7 +38,9 @@ class ServiceProvider extends LaravelServiceProvider
 
     public function register()
     {
-        $this->app->register(SluggableServiceProvider::class);
+        if (!$this->app->getProvider($provider = SluggableServiceProvider::class)) {
+            $this->app->register($provider);
+        }
 
         $this->registerCommands();
     }

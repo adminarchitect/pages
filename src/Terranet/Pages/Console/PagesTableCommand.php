@@ -49,6 +49,23 @@ class PagesTableCommand extends Command
         $this->composer = $composer;
     }
 
+     /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $fullPath = $this->createBaseMigration();
+        $this->files->put(
+            $fullPath,
+            $this->files->get(__DIR__ . '/stubs/pages.stub')
+        );
+        $this->info('Pages tables created successfully!');
+        $this->composer->dumpAutoloads();
+    }
+    
+    
     /**
      * Execute the console command.
      *
@@ -56,16 +73,7 @@ class PagesTableCommand extends Command
      */
     public function fire()
     {
-        $fullPath = $this->createBaseMigration();
-
-        $this->files->put(
-            $fullPath,
-            $this->files->get(__DIR__ . '/stubs/pages.stub')
-        );
-
-        $this->info('Pages tables created successfully!');
-
-        $this->composer->dumpAutoloads();
+        $this->handle();
     }
 
     /**

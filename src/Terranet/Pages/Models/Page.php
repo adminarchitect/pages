@@ -36,7 +36,9 @@ class Page extends Model
      */
     public function getUrlAttribute()
     {
-        return route('pages.show', ['slug' => $this->getAttribute('slug')]);
+        $page_route = route('pages.show', ['slug' => $this->getAttribute('slug')]);
+        // Return a link to the page
+        return link_to($page_route, $page_route, ['target' => '_blank']);
     }
 
     /**

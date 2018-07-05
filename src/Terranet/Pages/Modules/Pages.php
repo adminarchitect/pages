@@ -67,9 +67,7 @@ class Pages extends Scaffolding implements Navigable, Filtrable, Editable, Valid
                     ->update('title', function (Element $title) {
                         return $title->setStandalone(true);
                     })
-                    ->push((new Element('url'))->setTemplate(function ($row) {
-                        return link_to($row->url, $row->title, ['target' => '_blank']);
-                    }))
+                    ->push('url')
                     ->join(['title', 'url'], 'info', 1);
     }
 
